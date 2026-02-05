@@ -17,7 +17,7 @@ namespace app {
 
 		int style = WS_OVERLAPPEDWINDOW;
 
-		HWND window = CreateWindowExA(0, titre, titre,
+		window = CreateWindowExA(0, titre, titre,
 			style, 100, 100, largeur, hauteur, NULL, NULL, instance, NULL);
 
 		if (window == NULL) {
@@ -27,5 +27,15 @@ namespace app {
 		ShowWindow(window, SW_SHOW);
 
 		return true;
+	}
+
+	void Fenetre::update_window() {
+		MSG msg;
+
+		while (PeekMessageA(&msg, window, 0, 0, PM_REMOVE)) {
+
+			TranslateMessage(&msg);
+			DispatchMessageA(&msg);
+		}
 	}
 }
