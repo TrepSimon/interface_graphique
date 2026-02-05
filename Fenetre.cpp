@@ -1,6 +1,25 @@
 #include "Fenetre.h"
 
 namespace app {
+
+	bool Fenetre::running = false;
+
+	LRESULT CALLBACK Fenetre::windows_window_callback(HWND window, UINT msg, WPARAM wParam, LPARAM lParam)
+	{
+		LRESULT result = 0;
+
+		switch (msg) {
+		case WM_CLOSE:
+			running = false;
+			CloseWindow(window);
+			break;
+		default:
+			result = DefWindowProcA(window, msg, wParam, lParam);
+		}
+
+		return result;
+	}
+
 	bool Fenetre::create_window(int largeur, int hauteur, const char* titre) {
 		HINSTANCE instance = GetModuleHandleA(0);
 
@@ -9,7 +28,7 @@ namespace app {
 		ws.hIcon = LoadIcon(instance, IDI_APPLICATION);
 		ws.hCursor = LoadCursor(NULL, IDC_ARROW);
 		ws.lpszClassName = titre;
-		ws.lpfnWndProc = DefWindowProcA;
+		ws.lpfnWndProc = windows_window_callback;
 
 		if (!RegisterClassA(&ws)) {
 			return false;
@@ -25,7 +44,7 @@ namespace app {
 		}
 
 		ShowWindow(window, SW_SHOW);
-
+		
 		return true;
 	}
 
@@ -38,4 +57,9 @@ namespace app {
 			DispatchMessageA(&msg);
 		}
 	}
+
+	bool* Fenetre::getRunning() {
+		return &running;
+	}
+	
 }
