@@ -13,6 +13,15 @@ namespace app {
 			running = false;
 			CloseWindow(window);
 			break;
+		case WM_PAINT:{
+			PAINTSTRUCT ps;
+			HDC hdc = BeginPaint(window, &ps);
+
+			FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
+
+			EndPaint(window, &ps);
+			break;
+		}
 		default:
 			result = DefWindowProcA(window, msg, wParam, lParam);
 		}
