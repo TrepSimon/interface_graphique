@@ -3,6 +3,7 @@
 namespace app {
 
 	bool Fenetre::running = false;
+	void (*callback)(HDC) = NULL;
 
 	LRESULT CALLBACK Fenetre::windows_window_callback(HWND window, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
@@ -18,6 +19,8 @@ namespace app {
 			HDC hdc = BeginPaint(window, &ps);
 
 			FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
+
+			drawMethode(hdc);
 
 			EndPaint(window, &ps);
 			break;
@@ -69,6 +72,10 @@ namespace app {
 
 	bool* Fenetre::getRunning() {
 		return &running;
+	}
+
+	void Fenetre::addFunction(void (*func)(HDC)) {
+		drawMethode = func;
 	}
 	
 }

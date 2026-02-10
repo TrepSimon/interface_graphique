@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Simon\\interface_graphique\\",
+  "WorkspaceRootPath": "C:\\Users\\Simon\\source\\repos\\FenetreLibrary\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0BD1F439-3764-4259-AB65-7A11E6A70CD9}|FenetreLibrary.vcxproj|C:\\Users\\Simon\\interface_graphique\\Fenetre.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{0BD1F439-3764-4259-AB65-7A11E6A70CD9}|FenetreLibrary.vcxproj|C:\\Users\\Simon\\source\\repos\\FenetreLibrary\\Fenetre.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0BD1F439-3764-4259-AB65-7A11E6A70CD9}|FenetreLibrary.vcxproj|solutionrelative:Fenetre.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0BD1F439-3764-4259-AB65-7A11E6A70CD9}|FenetreLibrary.vcxproj|C:\\Users\\Simon\\interface_graphique\\Fenetre.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{0BD1F439-3764-4259-AB65-7A11E6A70CD9}|FenetreLibrary.vcxproj|C:\\Users\\Simon\\source\\repos\\FenetreLibrary\\Fenetre.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0BD1F439-3764-4259-AB65-7A11E6A70CD9}|FenetreLibrary.vcxproj|solutionrelative:Fenetre.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -24,11 +24,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Fenetre.cpp",
-              "DocumentMoniker": "C:\\Users\\Simon\\interface_graphique\\Fenetre.cpp",
+              "DocumentMoniker": "C:\\Users\\Simon\\source\\repos\\FenetreLibrary\\Fenetre.cpp",
               "RelativeDocumentMoniker": "Fenetre.cpp",
-              "ToolTip": "C:\\Users\\Simon\\interface_graphique\\Fenetre.cpp",
+              "ToolTip": "C:\\Users\\Simon\\source\\repos\\FenetreLibrary\\Fenetre.cpp",
               "RelativeToolTip": "Fenetre.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABQAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-02-05T18:33:09.626Z",
               "EditorCaption": ""
@@ -37,11 +37,11 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Fenetre.h",
-              "DocumentMoniker": "C:\\Users\\Simon\\interface_graphique\\Fenetre.h",
+              "DocumentMoniker": "C:\\Users\\Simon\\source\\repos\\FenetreLibrary\\Fenetre.h",
               "RelativeDocumentMoniker": "Fenetre.h",
-              "ToolTip": "C:\\Users\\Simon\\interface_graphique\\Fenetre.h",
+              "ToolTip": "C:\\Users\\Simon\\source\\repos\\FenetreLibrary\\Fenetre.h",
               "RelativeToolTip": "Fenetre.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-02-05T18:31:45.972Z",
               "EditorCaption": ""
