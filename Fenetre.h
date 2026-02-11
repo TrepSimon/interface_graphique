@@ -7,6 +7,7 @@ namespace app {
 
 	class Fenetre {
 		HWND window;
+		static HWND editWindow;
 		static bool running;
 		static void(*drawMethode)(HDC);
 	public:

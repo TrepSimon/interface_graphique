@@ -3,7 +3,8 @@
 namespace app {
 
 	bool Fenetre::running = false;
-	void (*callback)(HDC) = NULL;
+	void (*Fenetre::drawMethode)(HDC) = NULL;
+	HWND Fenetre::editWindow = NULL;
 
 	LRESULT CALLBACK Fenetre::windows_window_callback(HWND window, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
@@ -20,9 +21,20 @@ namespace app {
 
 			FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
 
-			drawMethode(hdc);
+			if(drawMethode){
+				drawMethode(hdc);
+			}
 
 			EndPaint(window, &ps);
+			break;
+		}
+		case WM_COMMAND: {
+			WCHAR buffer[256];
+			GetWindowText(editWindow, buffer, 256);
+			break;
+		}
+		case WM_CREATE: {
+			editWindow = CreateWindowEx(0, L"EDIT", L"input: ", WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT, 10, 10, 200, 25, window, (HMENU)1, NULL, NULL);
 			break;
 		}
 		default:
@@ -50,6 +62,7 @@ namespace app {
 
 		window = CreateWindowExA(0, titre, titre,
 			style, 100, 100, largeur, hauteur, NULL, NULL, instance, NULL);
+
 
 		if (window == NULL) {
 			return false;
