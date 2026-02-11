@@ -9,12 +9,14 @@ namespace app {
 		HWND window;
 		static HWND editWindow;
 		static bool running;
-		static void(*drawMethode)(HDC);
+		static void(*PaintMethode)(HDC);
+		static HWND(*onCreateMethode)(HWND);
 	public:
 		bool create_window(int, int, const char*);
 		void update_window();
 		static LRESULT CALLBACK windows_window_callback(HWND window, UINT msg, WPARAM wParam, LPARAM lParam);
 		bool* getRunning();
-		void addFunction(void (*func)(HDC));
+		void addPaintFunction(void (*func)(HDC));
+		void addCreateFunction(HWND(*func)(HWND));
 	};
 }

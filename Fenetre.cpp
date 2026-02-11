@@ -3,8 +3,9 @@
 namespace app {
 
 	bool Fenetre::running = false;
-	void (*Fenetre::drawMethode)(HDC) = NULL;
+	void (*Fenetre::PaintMethode)(HDC) = NULL;
 	HWND Fenetre::editWindow = NULL;
+	HWND(*Fenetre::onCreateMethode)(HWND) = NULL;
 
 	LRESULT CALLBACK Fenetre::windows_window_callback(HWND window, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
@@ -21,8 +22,8 @@ namespace app {
 
 			FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
 
-			if(drawMethode){
-				drawMethode(hdc);
+			if(PaintMethode){
+				PaintMethode(hdc);
 			}
 
 			EndPaint(window, &ps);
@@ -34,7 +35,9 @@ namespace app {
 			break;
 		}
 		case WM_CREATE: {
-			editWindow = CreateWindowEx(0, L"EDIT", L"input: ", WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT, 10, 10, 200, 25, window, (HMENU)1, NULL, NULL);
+			if(onCreateMethode){
+				editWindow = onCreateMethode(window);
+			}
 			break;
 		}
 		default:
@@ -87,8 +90,12 @@ namespace app {
 		return &running;
 	}
 
-	void Fenetre::addFunction(void (*func)(HDC)) {
-		drawMethode = func;
+	void Fenetre::addPaintFunction(void (*func)(HDC)) {
+		PaintMethode = func;
+	}
+
+	void Fenetre::addCreateFunction(HWND(*func)(HWND)) {
+		onCreateMethode = func;
 	}
 	
 }
