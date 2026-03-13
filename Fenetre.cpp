@@ -5,7 +5,14 @@ namespace app {
 	bool Fenetre::running = false;
 	void (*Fenetre::PaintMethode)(HDC) = NULL;
 	HWND Fenetre::editWindow = NULL;
-	HWND(*Fenetre::onCreateMethode)(HWND) = NULL;
+	HWND(*Fenetre::onCreateMethode)(HWND, int) = NULL;
+	void(*Fenetre::onResize)(HWND, int, int) = NULL;
+	int* Fenetre::bitmapWidth = NULL;
+
+	Fenetre::Fenetre() {
+		
+	}
+	
 
 	LRESULT CALLBACK Fenetre::windows_window_callback(HWND window, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
@@ -32,12 +39,29 @@ namespace app {
 		case WM_COMMAND: {
 			WCHAR buffer[256];
 			GetWindowText(editWindow, buffer, 256);
+			
+			PAINTSTRUCT ps;
+			HDC hdc = BeginPaint(window, &ps);
+			
+			TextOut(hdc, 100, 100, buffer, 256);
+
 			break;
 		}
 		case WM_CREATE: {
 			if(onCreateMethode){
-				editWindow = onCreateMethode(window);
+				editWindow = onCreateMethode(window, *bitmapWidth);
 			}
+			break;
+		}
+		case WM_SIZE: {
+			auto width = LOWORD(lParam);
+			auto height = HIWORD(lParam);
+
+			if (onResize) {
+				onResize(window, width, height);
+			}
+
+
 			break;
 		}
 		default:
@@ -80,7 +104,6 @@ namespace app {
 		MSG msg;
 
 		while (PeekMessageA(&msg, window, 0, 0, PM_REMOVE)) {
-
 			TranslateMessage(&msg);
 			DispatchMessageA(&msg);
 		}
@@ -90,12 +113,14 @@ namespace app {
 		return &running;
 	}
 
-	void Fenetre::addPaintFunction(void (*func)(HDC)) {
-		PaintMethode = func;
-	}
+	void Fenetre::addPaintFunction(void (*func)(HDC)) {	PaintMethode = func;}
 
-	void Fenetre::addCreateFunction(HWND(*func)(HWND)) {
+	void Fenetre::addCreateFunction(HWND(*func)(HWND, int)) {
 		onCreateMethode = func;
 	}
-	
+
+	void Fenetre::addResizeMethod(void(*func)(HWND parent, int width, int height)) {
+		onResize = func;
+	}
 }
+
