@@ -34,6 +34,7 @@ namespace app {
 			}
 
 			EndPaint(window, &ps);
+			DeleteDC(hdc);
 			break;
 		}
 		case WM_COMMAND: {
@@ -44,7 +45,7 @@ namespace app {
 			HDC hdc = BeginPaint(window, &ps);
 			
 			TextOut(hdc, 100, 100, buffer, 256);
-
+			EndPaint(window, &ps);
 			break;
 		}
 		case WM_CREATE: {
