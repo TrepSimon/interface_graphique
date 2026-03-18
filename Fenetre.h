@@ -14,6 +14,7 @@ namespace app {
 		static HWND(*onCreateMethode)(HWND, int);
 		static void (*onResize)(HWND, int, int);
 		static void (*onCommand)(HWND);
+		static void (*onKeyDown)(HWND, WPARAM);
 	public:
 		Fenetre();
 		static int* bitmapWidth;
@@ -25,5 +26,6 @@ namespace app {
 		void addCreateFunction(HWND(*func)(HWND, int));
 		void addResizeMethod(void(*func)(HWND, int, int));
 		void addCommandMethod(void(*func)(HWND));
+		void addKeyDownMethod(void(*func)(HWND, WPARAM));
 	};
 }

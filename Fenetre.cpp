@@ -9,6 +9,7 @@ namespace app {
 	void(*Fenetre::onResize)(HWND, int, int) = NULL;
 	int* Fenetre::bitmapWidth = NULL;
 	void(*Fenetre::onCommand)(HWND) = NULL;
+	void (*Fenetre::onKeyDown)(HWND, WPARAM) = NULL;
 
 	Fenetre::Fenetre() {
 		
@@ -46,6 +47,14 @@ namespace app {
 
 			break;
 		}
+		case WM_KEYDOWN: {
+
+			if (onKeyDown) {
+				onKeyDown(window, wParam);
+			}
+			else DefWindowProcA(window, msg, wParam, lParam);
+		}
+
 		case WM_CREATE: {
 			if(onCreateMethode){
 				editWindow = onCreateMethode(window, *bitmapWidth);
@@ -124,6 +133,10 @@ namespace app {
 
 	void Fenetre::addCommandMethod(void(*func)(HWND)) {
 		onCommand = func;
+	}
+
+	void Fenetre::addKeyDownMethod(void(*func)(HWND, WPARAM)) {
+		onKeyDown = func;
 	}
 }
 
