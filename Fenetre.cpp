@@ -8,6 +8,7 @@ namespace app {
 	HWND(*Fenetre::onCreateMethode)(HWND, int) = NULL;
 	void(*Fenetre::onResize)(HWND, int, int) = NULL;
 	int* Fenetre::bitmapWidth = NULL;
+	void(*Fenetre::onCommand)(HWND) = NULL;
 
 	Fenetre::Fenetre() {
 		
@@ -38,14 +39,11 @@ namespace app {
 			break;
 		}
 		case WM_COMMAND: {
-			WCHAR buffer[256];
-			GetWindowText(editWindow, buffer, 256);
 			
-			PAINTSTRUCT ps;
-			HDC hdc = BeginPaint(window, &ps);
-			
-			TextOut(hdc, 100, 100, buffer, 256);
-			EndPaint(window, &ps);
+			if (onCommand) {
+				onCommand(window);
+			}
+
 			break;
 		}
 		case WM_CREATE: {
@@ -122,6 +120,10 @@ namespace app {
 
 	void Fenetre::addResizeMethod(void(*func)(HWND parent, int width, int height)) {
 		onResize = func;
+	}
+
+	void Fenetre::addCommandMethod(void(*func)(HWND)) {
+		onCommand = func;
 	}
 }
 

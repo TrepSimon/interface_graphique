@@ -13,6 +13,7 @@ namespace app {
 		static void(*PaintMethode)(HDC);
 		static HWND(*onCreateMethode)(HWND, int);
 		static void (*onResize)(HWND, int, int);
+		static void (*onCommand)(HWND);
 	public:
 		Fenetre();
 		static int* bitmapWidth;
@@ -23,5 +24,6 @@ namespace app {
 		void addPaintFunction(void (*func)(HDC));
 		void addCreateFunction(HWND(*func)(HWND, int));
 		void addResizeMethod(void(*func)(HWND, int, int));
+		void addCommandMethod(void(*func)(HWND));
 	};
 }
