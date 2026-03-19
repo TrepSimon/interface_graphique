@@ -3,13 +3,7 @@
 namespace app {
 
 	bool Fenetre::running = false;
-	void (*Fenetre::PaintMethode)(HDC) = NULL;
-	HWND Fenetre::editWindow = NULL;
-	HWND(*Fenetre::onCreateMethode)(HWND, int) = NULL;
-	void(*Fenetre::onResize)(HWND, int, int) = NULL;
-	int* Fenetre::bitmapWidth = NULL;
-	void(*Fenetre::onCommand)(HWND) = NULL;
-	void (*Fenetre::onKeyDown)(HWND, WPARAM) = NULL;
+	LRESULT(*Fenetre::windowProc)(HWND, UINT, WPARAM, LPARAM) = NULL;
 
 	Fenetre::Fenetre() {
 		
@@ -20,61 +14,10 @@ namespace app {
 	{
 		LRESULT result = 0;
 
-		switch (msg) {
-		case WM_CLOSE:
-			running = false;
-			CloseWindow(window);
-			break;
-		case WM_PAINT:{
-			PAINTSTRUCT ps;
-			HDC hdc = BeginPaint(window, &ps);
-
-			FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
-
-			if(PaintMethode){
-				PaintMethode(hdc);
-			}
-
-			EndPaint(window, &ps);
-			DeleteDC(hdc);
-			break;
+		if (windowProc) {
+			result = windowProc(window, msg, wParam, lParam);
 		}
-		case WM_COMMAND: {
-			
-			if (onCommand) {
-				onCommand(window);
-			}
-
-			break;
-		}
-		case WM_KEYDOWN: {
-
-			if (onKeyDown) {
-				onKeyDown(window, wParam);
-			}
-			else DefWindowProcA(window, msg, wParam, lParam);
-		}
-
-		case WM_CREATE: {
-			if(onCreateMethode){
-				editWindow = onCreateMethode(window, *bitmapWidth);
-			}
-			break;
-		}
-		case WM_SIZE: {
-			auto width = LOWORD(lParam);
-			auto height = HIWORD(lParam);
-
-			if (onResize) {
-				onResize(window, width, height);
-			}
-
-
-			break;
-		}
-		default:
-			result = DefWindowProcA(window, msg, wParam, lParam);
-		}
+		else result = DefWindowProcA(window, msg, wParam, lParam);
 
 		return result;
 	}
@@ -121,22 +64,8 @@ namespace app {
 		return &running;
 	}
 
-	void Fenetre::addPaintFunction(void (*func)(HDC)) {	PaintMethode = func;}
-
-	void Fenetre::addCreateFunction(HWND(*func)(HWND, int)) {
-		onCreateMethode = func;
-	}
-
-	void Fenetre::addResizeMethod(void(*func)(HWND parent, int width, int height)) {
-		onResize = func;
-	}
-
-	void Fenetre::addCommandMethod(void(*func)(HWND)) {
-		onCommand = func;
-	}
-
-	void Fenetre::addKeyDownMethod(void(*func)(HWND, WPARAM)) {
-		onKeyDown = func;
+	void Fenetre::addWindowProc(LRESULT(*func)(HWND, UINT, WPARAM, LPARAM)) {
+		windowProc = func;
 	}
 }
 
