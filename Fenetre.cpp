@@ -56,6 +56,9 @@ namespace app {
 
 		while (PeekMessageA(&msg, window, 0, 0, PM_REMOVE)) {
 			TranslateMessage(&msg);
+			if (msg.message == WM_CHAR) {
+				SendMessage(window, WM_CHAR, msg.wParam, msg.lParam);
+			}
 			DispatchMessageA(&msg);
 		}
 	}
